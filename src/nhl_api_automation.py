@@ -19,8 +19,8 @@ from nhl_database.nhl_data_models import database, Games
 base_url = "https://api-web.nhle.com/v1/schedule/" #Url changes as of Wed Nov 8 2023
 # API call variable
 
-start_date = datetime.today()-timedelta(days=30) #date, used for observation
-end_date = datetime.today()-timedelta(days=1)
+start_date = datetime(2025,9,1) #date, used for observation
+end_date = datetime(2026,5,1)
 loop_date = start_date
 
 while loop_date < end_date:

@@ -21,13 +21,13 @@ from nhl_database.queries import (
     epochtime,
     elo_ratings_list,
     form_query,
+    new_srs_ratings_list
 )
 from nhl_database.nhl_data_models import Games
 
 # Analytics imports
 from analytics.SRS import SRS
 from analytics.pythag import league_pythagorean_wins
-
 # Wins script import
 from analytics.wins_script import get_wins
 
@@ -75,6 +75,7 @@ def info_table_data(season_year, start_datetime, end_datetime):
     srs_list = SRS(
         games_list, max_MOV=max_MOV, home_team_adv=home_team_adv, win_floor=win_floor
     )
+    srs_list = new_srs_ratings_list(end_datetime)
     #srs_list = [0 for i in range(1,33)]
 
     elo_list = elo_ratings_list(epochtime(end_datetime))

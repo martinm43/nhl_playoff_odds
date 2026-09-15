@@ -122,3 +122,20 @@ class TeamEloData(BaseModel):
 
     class Meta:
         table_name = "team_elo_data"
+
+
+class SRS(BaseModel):
+    """ORM object for the team elo table"""
+
+    team_id = IntegerField(null=True)  #
+    team_abbreviation = TextField(null=True)
+    current_abbreviation = TextField(null=True)
+    srs_rating = FloatField(null=True)
+    epochtime = FloatField(null=True)
+    year = IntegerField(null=True)
+
+    class Meta:
+        table_name = "SRS"
+
+
+
