@@ -141,8 +141,8 @@ def print_results_table(results_tuples):
 
 if __name__ == "__main__":
     import sys
-    season_year = 2026
-    start_datetime=datetime(season_year-1,10,1)
+    season_year = 2027
+    start_datetime=datetime(season_year-1,9,29)
     end_datetime = datetime(season_year,5,1)
     a = info_table_data(season_year,start_datetime,end_datetime)
     print_results_table(a)
