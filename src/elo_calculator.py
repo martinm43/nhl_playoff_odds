@@ -23,7 +23,7 @@ import numpy as np
 DEFAULT_RATING = 0.015
 
 
-def predicted_dos_formula(a, b):
+def predicted_rd_formula(a, b):
     """
     Parameters
     ----------
@@ -84,34 +84,36 @@ def season_elo_calc(_analysis_list, previous_ratings=None, new_season=True):
     # create a list of ratings to return and store the first ratings set
     list_of_ratings = []
     initial_date = _analysis_list[0][4]  # first entry, first date
-    season_year = analysis_list[0][5]
+    year = analysis_list[0][5]
     for i, z in enumerate(season_elo_ratings_list):
         rd = {}  # ratings_dict
         rd["team_id"] = i + 1
         rd["team_abbreviation"] = team_abbreviation(rd["team_id"])
         rd["elo_rating"] = z[0] * 100000
         rd["datetime"] = initial_date
-        rd["season_year"] = season_year
+        rd["season_year"] = year
         list_of_ratings.append(rd)
 
     for g in _analysis_list:
 
         # get previous elo ratings
-        visitor_rating = season_elo_ratings_list[g[0] - 1]
+        away_rating = season_elo_ratings_list[g[0] - 1]
         home_rating = season_elo_ratings_list[g[2] - 1]
         # get expected DoS value, compare it to the real one
-        expected_dos = predicted_dos_formula(visitor_rating, home_rating)
-        actual_dos = (g[1] - g[3]) / (g[1] + g[3])
-        
-        dos_difference = actual_dos - expected_dos
+        expected_rd = predicted_rd_formula(away_rating, home_rating)
+        actual_rd = g[1] - g[3]
+        rd_difference = actual_rd - expected_rd
         # adjust ratings
-        change_factor = default_K * dos_difference
+        change_factor = default_K * rd_difference
         season_elo_ratings_list[g[0] - 1] = (
             season_elo_ratings_list[g[0] - 1] + change_factor
         )
         season_elo_ratings_list[g[2] - 1] = (
             season_elo_ratings_list[g[2] - 1] - change_factor
         )
+
+
+
         # add the date and then add the new ratings to the list of ratings
         cur_date = g[4]
         list_of_ratings.append(
@@ -119,7 +121,7 @@ def season_elo_calc(_analysis_list, previous_ratings=None, new_season=True):
                 "team_id": g[0],
                 "elo_rating": season_elo_ratings_list[g[0] - 1][0] * 100000,
                 "datetime": cur_date,
-                "season_year": season_year,
+                "season_year": year,
                 "team_abbreviation": team_abbreviation(g[0]),
             }
         )
@@ -128,10 +130,11 @@ def season_elo_calc(_analysis_list, previous_ratings=None, new_season=True):
                 "team_id": g[2],
                 "elo_rating": season_elo_ratings_list[g[2] - 1][0] * 100000,
                 "datetime": cur_date,
-                "season_year": season_year,
+                "season_year": year,
                 "team_abbreviation": team_abbreviation(g[2]),
             }
         )
+
 
     print(
         "Final set of Elo ratings after season "
