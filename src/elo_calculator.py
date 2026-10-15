@@ -41,6 +41,8 @@ def predicted_rd_formula(a, b):
     """
     mean = 0.05442
     stddev = 0.28929
+    b=b[0]
+    a=a[0]
     DoS = -1 + 2 / (1 + exp((b - a - mean) / stddev))
     return DoS
 
@@ -73,7 +75,7 @@ def season_elo_calc(_analysis_list, previous_ratings=None, new_season=True):
     """
 
     default_rating = DEFAULT_RATING  # 1 gives good results.
-    rating_scaling = 50  # under development - rating_scaling being calibrated
+    rating_scaling = 300  # under development - rating_scaling being calibrated
     default_K = default_rating / rating_scaling
 
     if new_season == True:
@@ -146,7 +148,7 @@ def season_elo_calc(_analysis_list, previous_ratings=None, new_season=True):
 
 
 def year_to_year_ratings(
-    season_elo_ratings_list, reset_factor=0.25, reset_value=DEFAULT_RATING
+    season_elo_ratings_list, reset_factor=0.75, reset_value=DEFAULT_RATING
 ):
     """
     Take a set of ratings from the previous year,
