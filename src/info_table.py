@@ -108,7 +108,7 @@ def info_table_data(season_year, start_datetime, end_datetime):
         for x in results
     ]
 
-    results_tuples.sort(key=lambda x: -x[8]) #formerly x[8], otherwise will return alphabetical sort
+    results_tuples.sort(key=lambda x: -x[2]) #formerly x[8], otherwise will return alphabetical sort
     return results_tuples
 
 def print_results_table(results_tuples):

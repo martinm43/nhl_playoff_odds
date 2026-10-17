@@ -148,7 +148,7 @@ def season_elo_calc(_analysis_list, previous_ratings=None, new_season=True):
 
 
 def year_to_year_ratings(
-    season_elo_ratings_list, reset_factor=0.75, reset_value=DEFAULT_RATING
+    season_elo_ratings_list, reset_factor=0.5, reset_value=DEFAULT_RATING
 ):
     """
     Take a set of ratings from the previous year,

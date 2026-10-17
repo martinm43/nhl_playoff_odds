@@ -197,8 +197,8 @@ int main() {
             
 
             //Debug print dimensions of matrices
-            std::cout << "MT is " << MmatrixT.rows() << " by " << MmatrixT.cols() << std::endl;
-            std::cout << "S is " << Svector.rows() << " by " << Svector.cols() << std::endl;
+            //std::cout << "MT is " << MmatrixT.rows() << " by " << MmatrixT.cols() << std::endl;
+            //std::cout << "S is " << Svector.rows() << " by " << Svector.cols() << std::endl;
 
             Eigen::LeastSquaresConjugateGradient<SparseMatrix> solver1;
             int maxIterations = 30; //Accurate enough and doesn't give blow up solutions
@@ -210,8 +210,8 @@ int main() {
             }
 
             DenseVector x1 = solver1.solve(Svector);
-            std::cout << "SRS results on epochtime: " << endepochTime << std::endl;
-            std::cout << "Solution using LeastSquaresConjugateGradient:\n";
+            //std::cout << "SRS results on epochtime: " << endepochTime << std::endl;
+            //std::cout << "Solution using LeastSquaresConjugateGradient:\n";
             
             for (int i=0; i<x1.size(); i++){
             Rating rating;
@@ -220,7 +220,7 @@ int main() {
             rating.epochtime = endepochTime;
             rating.srs_rating = x1[i];
             ratings_history.push_back(rating);
-            std::cout << rating.team_id << ": " << rating.srs_rating << "\n";
+            //std::cout << rating.team_id << ": " << rating.srs_rating << "\n";
             }
 
             //std::cout<<"Completion. "<<std::endl;
@@ -230,7 +230,7 @@ int main() {
             //std::cout<<std::to_string(yearendepochTime)<<std::endl;
         }
     }
-    std::cout << "total values calculated: " << ratings_history.size() << "\nBeginning insert now" << std::endl;
+    //std::cout << "total values calculated: " << ratings_history.size() << "\nBeginning insert now" << std::endl;
 
     //Delete existing table
     std::string deleteQuery = "DROP TABLE IF EXISTS SRS;";
@@ -311,7 +311,7 @@ int main() {
     sqlite3_finalize(stmt);
 
     //SQL statement for updating all team abbreviations
-    std::string abbrev_update = "UPDATE SRS as r SET team_abbreviation = (SELECT abbreviation FROM pro_api_teams AS t WHERE r.team_id = t.bball_ref_id)";
+    std::string abbrev_update = "UPDATE SRS as r SET team_abbreviation = (SELECT abbreviation FROM teams AS t WHERE r.team_id = t.id)";
     // Commit the transaction
     rc = sqlite3_exec(db, abbrev_update.c_str(), nullptr, nullptr, nullptr);
     if (rc != SQLITE_OK) {
