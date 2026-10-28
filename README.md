@@ -5,7 +5,7 @@ A hockey predictions library based on Elo and SRS, similar to the nba_playoff_od
 
 
 ## Attributions
-This project incorporates source from the Armadillo C++ Linear Algebra Library.
+This project incorporates source from the Armadillo C++ Linear Algebra Library for solving the sparse matrices associated with the Simple Rating System.
 As such, the attributions of Armadillo will be included in this project in accordance with their wishes:
 
 Copyright 2008-2018 Conrad Sanderson (http://conradsanderson.id.au)
